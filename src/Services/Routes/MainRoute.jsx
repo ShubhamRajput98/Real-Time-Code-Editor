@@ -4,6 +4,7 @@ import { Dashboard } from "../../Screens/Dashboard/Dashboard"
 import { Signin } from "../../Screens/Auth/Signin"
 import { Signup } from "../../Screens/Auth/Signup"
 import { PageNotFound } from "../../Shared/404page/PageNotFound"
+import { WebSocket } from "../../Shared/WebShocket/WebShocket"
 
 export const MainRoute = () => {
     return (
@@ -12,6 +13,7 @@ export const MainRoute = () => {
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/" element={<Home />}>
                 <Route path="/" element={< Dashboard/>}/>
+                <Route path="/webshocket" element={< WebSocket/>}/>
             </Route>
             <Route path="*" element={<PageNotFound/>}/>
         </Routes>
