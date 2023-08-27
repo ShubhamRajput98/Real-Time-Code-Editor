@@ -13,7 +13,7 @@ export const MainRoute = () => {
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/" element={<Home />}>
                 <Route path="/" element={< Dashboard/>}/>
-                <Route path="/webshocket" element={< WebSocket/>}/>
+                <Route path="/websocket" element={< WebSocket/>}/>
             </Route>
             <Route path="*" element={<PageNotFound/>}/>
         </Routes>

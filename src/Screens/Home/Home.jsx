@@ -3,10 +3,10 @@ import { Outlet } from 'react-router-dom'
 
 export const Home = () => {
   return (
-    <div className='container m-auto'>
+    <div className='w-screen'>
       <div className="flex ">
         {/* <Sidebar /> */}
-        <div className='w-full max-h-screen overflow-auto hide-scroll-bar'>
+        <div className='w-full min-h-screen overflow-auto hide-scroll-bar'>
           <Outlet />
         </div>
       </div>
