@@ -1,95 +1,6 @@
 
 
 
-/* ********************** 
-sidebar css start
-********************** */
-.sidebar-section {
-    transition: width 0.5s ease-in-out;
-}
-
-.sidebar-section.close {
-    width: 65px;
-    overflow: hidden;
-}
-
-.sidebar-section.close .sidebar-content .sidebar-heading {
-    padding: 0;
-    transition-delay: 0.3s;
-}
-
-.sidebar-section .sidebar-content .sidebar-heading .close-icon {
-    right: 0;
-    top: 60%;
-    transform: translateY(-60%);
-}
-
-.sidebar-section.close .sidebar-content .sidebar-heading .close-icon {
-    right: 5px;
-}
-
-.sidebar-section.open .sidebar-content .sidebar-heading h4 {
-    transition-delay: 0.2s;
-    white-space: nowrap;
-}
-
-.sidebar-section.close .sidebar-content .sidebar-heading h4 {
-    visibility: hidden;
-    white-space: nowrap;
-    transition-delay: 0.2s;
-}
-
-.sidebar-section.open .sidebar-menu-section .sidebar-menu-heading {
-    transition-delay: 0.3s;
-}
-
-.sidebar-section.close .sidebar-menu-section .sidebar-menu-heading {
-    visibility: hidden;
-    transition-delay: 0.3s;
-}
-
-.sidebar-section .sidebar-menu-section .sidebar-menu-content .sidebar-menu-list .sidebar-menu .sidebar-link {
-    box-shadow: 0 0 10px #141414,
-        inset 0 0 5px #141414;
-    transition: all 0.3s ease-in-out;
-}
-
-.sidebar-section .sidebar-menu-section .sidebar-menu-content .sidebar-menu-list .sidebar-menu a:hover {
-    box-shadow: 0 0 10px #141414,
-        inset 0 0 5px #141414;
-    transition: all 0.3s ease-in-out;
-}
-
-.sidebar-section.open .sidebar-menu-section .sidebar-menu-content .sidebar-menu-list .sidebar-menu a span {
-    /* transition: all 0.2s ease-in-out; */
-    transition-delay: 0.3s;
-}
-
-.sidebar-section.close .sidebar-menu-section .sidebar-menu-content .sidebar-menu-list .sidebar-menu a span {
-    width: 0;
-    margin: 0;
-    transform: rotateX(90deg) translateX(-80%);
-    /* transition: all 0.2s ease-in-out; */
-}
-
-.sidebar-section.close .sidebar-menu-section .sidebar-menu-content .sidebar-menu-list .sidebar-menu a:hover span {
-    position: fixed;
-    width: max-content;
-    transform: rotateX(0);
-    width: max-content;
-    background: rgb(55 65 81);
-    padding: 0.5em 1em;
-    border-radius: 8px;
-    left: 60px;
-    transition: all 0.3s ease-in-out;
-    transition-delay: 0;
-}
-
-
-/* ********************** 
-sidebar css end
-********************** */
-
 body::-webkit-scrollbar {
     display: none;
 }
@@ -97,3 +8,27 @@ body::-webkit-scrollbar {
 .hide-scroll-bar::-webkit-scrollbar {
     display: none;
 }
+
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9;
+}
+
+
+
+/* ********************** 
+avart and dropdown css start
+********************** */
+.dropdown-menu{
+    position: absolute;
+    left: 0;
+    bottom: -3rem;
+    z-index: 10;
+}
+/* ********************** 
+avart and dropdown css end
+********************** */

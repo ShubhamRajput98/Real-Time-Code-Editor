@@ -4,6 +4,7 @@ import PostApiCall from "../../ApiCalling/PostApiCall";
 
 export const onLoginUser = (email,password,navigation)=>{
     return async (dispatch)=>{
+        
         try{
             dispatch(userAction.onLoading({data:true}));
             const url = Login;
@@ -16,7 +17,7 @@ export const onLoginUser = (email,password,navigation)=>{
             dispatch(userAction.onLogin({data:response.token}));
             localStorage.setItem("token", JSON.stringify(response.token));
             dispatch(userAction.onLoading({data:false}));
-            navigation("/")
+            navigation("/dashboard")
             }else{
             dispatch(userAction.onLoading({data:false}));
             alert(response.non_field_errors[0]);

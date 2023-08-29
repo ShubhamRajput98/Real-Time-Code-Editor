@@ -5,15 +5,17 @@ import { Signin } from "../../Screens/Auth/Signin"
 import { Signup } from "../../Screens/Auth/Signup"
 import { PageNotFound } from "../../Shared/404page/PageNotFound"
 import { WebSocket } from "../../Shared/WebShocket/WebShocket"
+import { VideoCalling } from "../../Shared/VideoCalling/VideoCalling"
 
 export const MainRoute = () => {
     return (
         <Routes>
-            <Route path="/signin" element={<Signin/>}/>
+            <Route path="/" element={<Signin/>}/>
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/" element={<Home />}>
-                <Route path="/" element={< Dashboard/>}/>
+                <Route path="/dashboard" element={< Dashboard/>}/>
                 <Route path="/websocket" element={< WebSocket/>}/>
+                <Route path="/videocalling" element={< VideoCalling/>}/>
             </Route>
             <Route path="*" element={<PageNotFound/>}/>
         </Routes>

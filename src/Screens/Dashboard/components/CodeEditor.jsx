@@ -8,7 +8,7 @@ export const CodeEditor = ({ code, onChange, file, theme, handleEditorDidMount }
   return (
     <Editor
       width="100%"
-      height="570px"
+      height="530px"
       onMount={handleEditorDidMount}
       value={code}
       language={file.language.toLowerCase()}

@@ -1,45 +1,51 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import io from 'socket.io-client';
-
+import useWebSocket, { ReadyState } from 'react-use-websocket';
 export const WebSocket = () => {
-    const [messages, setMessages] = useState([]);
-    const [message, setMessage] = useState('');
-    const socket = io('http://localhost:8000/socket.io'); // Replace with your server URL
-  
-    useEffect(() => {
-      // Listen for incoming messages from the server
-      socket.on('message', (data) => {
-        setMessages((prevMessages) => [...prevMessages, data]);
-      });
-    }, []);
-  
-    const handleSendMessage = () => {
-      if (message.trim() !== '') {
-        socket.emit('message', message);
-        setMessage('');
-      }
-    };
+   //Public API that will echo messages sent to it back to the client
+  const [socketUrl, setSocketUrl] = useState('ws://localhost:8000/ws/sc/');
+  const [messageHistory, setMessageHistory] = useState([]);
 
+  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+
+  useEffect(() => {
+    if (lastMessage !== null) {
+      setMessageHistory((prev) => prev.concat(lastMessage));
+    }
+  }, [lastMessage, setMessageHistory]);
+
+  const handleClickChangeSocketUrl = useCallback(
+    () => setSocketUrl('ws://localhost:8000/ws/sc/'),
+    []
+  );
+
+  const handleClickSendMessage = useCallback(() => sendMessage('Hello'), []);
+
+  const connectionStatus = {
+    [ReadyState.CONNECTING]: 'Connecting',
+    [ReadyState.OPEN]: 'Open',
+    [ReadyState.CLOSING]: 'Closing',
+    [ReadyState.CLOSED]: 'Closed',
+    [ReadyState.UNINSTANTIATED]: 'Uninstantiated',
+  }[readyState];
 
     return (
         <div>
-            <h1>Socket.io Chat</h1>
-            <div className="messages">
-                {messages.map((msg, index) => (
-                    <div key={index} className="message">
-                        {msg}
-                    </div>
-                ))}
-            </div>
-            <div className="input-container">
-                <input
-                    type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Type a message..."
-                />
-                <button onClick={handleSendMessage}>Send</button>
-            </div>
-        </div>
+        <button onClick={handleClickChangeSocketUrl}>
+          Click Me to change Socket Url
+        </button>
+        <button
+          onClick={handleClickSendMessage}
+          disabled={readyState !== ReadyState.OPEN}
+        >
+          Click Me to send 'Hello'
+        </button>
+        <span>The WebSocket is currently {connectionStatus}</span>
+        {lastMessage ? <span>Last message: {lastMessage.data}</span> : null}
+        <ul>
+          {messageHistory.map((message, idx) => (
+            <span key={idx}>{message ? message.data : null}</span>
+          ))}
+        </ul>
+      </div>
     );
 };

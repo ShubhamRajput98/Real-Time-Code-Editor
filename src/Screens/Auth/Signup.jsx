@@ -128,7 +128,7 @@ export const Signup = () => {
           </div>
 
           <div className="flex justify-center items-center my-5 mb-0">
-            <p className='text-slate-400 text-sm'>Already have an accout? <NavLink to={"/signin"} className={"text-slate-900 text-md"}>Sign in</NavLink></p>
+            <p className='text-slate-400 text-sm'>Already have an accout? <NavLink to={"/"} className={"text-slate-900 text-md"}>Sign in</NavLink></p>
           </div>
         </div>
       </div>
