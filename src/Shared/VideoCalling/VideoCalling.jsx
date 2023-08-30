@@ -13,7 +13,7 @@ export const VideoCalling = () => {
     const [localStream, setLocalStream] = useState(null);
     const [isSharingScreen, setIsSharingScreen] = useState(false);
     const [isVideoOn, setIsVideoOn] = useState(true);
-    const [isAudioMuted, setIsAudioMuted] = useState(true);
+    const [isAudioMuted, setIsAudioMuted] = useState(false);
     // const socket = io('ws://localhost:8000/ws/sc/'); // Your signaling server URL
 
     let peer;
@@ -100,7 +100,7 @@ export const VideoCalling = () => {
         <div className='video-screens'>
             <div className="relative">
                 <video className='bg-slate-900 w-screen h-screen' ref={remoteVideoRef} autoPlay />
-                <video className='w-1/4 absolute top-5 right-5' ref={localVideoRef} autoPlay muted={isAudioMuted} style={{ transform: 'scaleX(-1)' }} />
+                <video className='w-1/4 absolute top-5 right-5' ref={localVideoRef} autoPlay muted={!isAudioMuted} style={{ transform: 'scaleX(-1)' }} />
 
 
                 <div className="btn-groups absolute bottom-5 w-full">
@@ -115,13 +115,13 @@ export const VideoCalling = () => {
                             {isVideoOn ? <MdVideocamOff /> : <MdVideocam />}
                         </button>
 
-                        <button onClick={toggleAudio} className={`${isAudioMuted ? 'bg-red-600' : 'bg-slate-800'} flex justify-center items-center text-slate-50 h-12 w-12 rounded-full hover:bg-red-500`}>
-                            {isAudioMuted ? <BsFillMicMuteFill /> : <BsMicFill />}
+                        <button onClick={toggleAudio} className={`${!isAudioMuted ? 'bg-red-600' : 'bg-slate-800'} flex justify-center items-center text-slate-50 h-12 w-12 rounded-full hover:bg-red-500`}>
+                            {!isAudioMuted ? <BsFillMicMuteFill /> : <BsMicFill />}
                         </button>
                     </div>
                 </div>
 
-                
+
             </div>
         </div>
     )

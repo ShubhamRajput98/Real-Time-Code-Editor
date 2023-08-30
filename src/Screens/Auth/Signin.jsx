@@ -15,11 +15,11 @@ export const Signin = () => {
   const [passwordError, setPasswordError] = useState('');
   const [isValidate, setIsValidate] = useState(false);
   const [inputType, setInputType] = useState('password');
-  const [expire, setExpire] = useState(true)
+  const [expire, setExpire] = useState(true);
 
 
   const dispatch = useDispatch();
-  const navigation = useNavigate()
+  const navigation = useNavigate();
 
   const { loading } = useSelector(state => state.user)
 
@@ -32,13 +32,13 @@ export const Signin = () => {
         const decodedToken = jwtDecode(token);
         const currentTime = Date.now() / 1000; // Convert to seconds since Unix epoch
         // Check if the token has expired
-        if (decodedToken.exp < currentTime !== true) {
+        if ((decodedToken.exp < currentTime) !== true) {
           setExpire(false)
           navigation('/dashboard')
           return
         } else {
          navigation('/')
-         localStorage.clear()
+        //  localStorage.clear()
         };
       } catch (error) {
         // Handle any decoding errors
@@ -47,7 +47,7 @@ export const Signin = () => {
       }
     }
 
-  }, [])
+  }, [navigation])
 
 
 
@@ -74,7 +74,7 @@ export const Signin = () => {
 
   const handelSubmit = () => {
 
-    if (email == ' ' || password == ' ') {
+    if (!email || !password) {
       alert('All feilds are required')
       return
     }

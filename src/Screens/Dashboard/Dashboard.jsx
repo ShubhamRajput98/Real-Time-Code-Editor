@@ -7,6 +7,8 @@ import { JWTdecoder } from '../../Shared/JWTdecoder/JWTdecoder';
 
 
 
+
+
 export const Dashboard = () => {
   // store compiler code
   const [code, setCode] = useState('');
@@ -18,7 +20,7 @@ export const Dashboard = () => {
   const token = localStorage.getItem('token');
   const userData = JWTdecoder(token)
   // store compiler code output
-  const [output, setOutput] = useState('');
+  // const [output, setOutput] = useState('');
   // dropdown toggel
   const [open, setOpen] = useState(false)
 
@@ -26,18 +28,18 @@ export const Dashboard = () => {
 
 
   // run compiler code and sotre in state output
-  const runCode = () => {
-    try {
-      // Clear previous output
-      setOutput('');
+  // const runCode = () => {
+  //   try {
+  //     // Clear previous output
+  //     setOutput('');
 
-      const result = eval(code);
+  //     const result = eval(code);
 
-      setOutput(result);
-    } catch (error) {
-      setOutput(`Error: ${error.message}`);
-    }
-  };
+  //     setOutput(result);
+  //   } catch (error) {
+  //     setOutput(`Error: ${error.message}`);
+  //   }
+  // };
 
   // compiler mount function
   function handleEditorDidMount(editor, monaco) {
