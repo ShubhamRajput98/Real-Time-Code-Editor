@@ -15,7 +15,7 @@ export const Signin = () => {
   const [passwordError, setPasswordError] = useState('');
   const [isValidate, setIsValidate] = useState(false);
   const [inputType, setInputType] = useState('password');
-  const [expire, setExpire] = useState(true);
+  const [expire, setExpire] = useState(false);
 
 
   const dispatch = useDispatch();
@@ -32,19 +32,18 @@ export const Signin = () => {
         const decodedToken = jwtDecode(token);
         const currentTime = Date.now() / 1000; // Convert to seconds since Unix epoch
         // Check if the token has expired
-        if ((decodedToken.exp < currentTime) !== true) {
-          setExpire(false)
+        if (decodedToken.exp >= currentTime) {
+          setExpire(true)
+        }else{
           navigation('/dashboard')
-          return
-        } else {
-         navigation('/')
-        //  localStorage.clear()
-        };
+        }
       } catch (error) {
         // Handle any decoding errors
         console.error('Error decoding token:', error);
         setExpire(true); // Assume token is expired in case of error
       }
+    }else{
+      setExpire(false)
     }
 
   }, [navigation])
@@ -89,7 +88,7 @@ export const Signin = () => {
 
   return (
     <>
-      {expire ? <div className='auth min-h-screen flex items-center justify-center'>
+      <div className='auth min-h-screen flex items-center justify-center'>
         <div className="flex form-group-content p-5 rounded-lg">
           <div className="form-content p-3">
             <div className="logo mb-5">
@@ -99,6 +98,7 @@ export const Signin = () => {
               <div className="heading">
                 <h4 className='text-xl mb-2'>Wellcome Back!</h4>
                 <p className='text-slate-500 text-sm'>Please enter log in details below</p>
+                {expire? <p className="error-msg">Your token is expier please log in agin</p>:null}
               </div>
             </div>
             <form className='form'>
@@ -144,7 +144,7 @@ export const Signin = () => {
             </div>
           </div>
         </div>
-      </div> : ''}
+      </div> 
     </>
   )
 }
