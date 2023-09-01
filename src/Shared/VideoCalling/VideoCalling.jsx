@@ -12,8 +12,12 @@ export const VideoCalling = () => {
 
     const [localStream, setLocalStream] = useState(null);
     const [isSharingScreen, setIsSharingScreen] = useState(false);
-    const [isVideoOn, setIsVideoOn] = useState(true);
+    const [isVideoOn, setIsVideoOn] = useState(false);
     const [isAudioMuted, setIsAudioMuted] = useState(false);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [isDragging, setIsDragging] = useState(false);
+    const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+    const divRef = useRef()
     // const socket = io('ws://localhost:8000/ws/sc/'); // Your signaling server URL
 
     let peer;
@@ -44,7 +48,7 @@ export const VideoCalling = () => {
         //     peer.signal(offer);
         //   });
 
-    }, [])
+    }, [isVideoOn])
 
 
 
@@ -87,20 +91,60 @@ export const VideoCalling = () => {
     };
 
     const toggleAudio = () => {
-        if (localStream) {
-            localStream.getAudioTracks().forEach(track => {
-                track.enabled = !isAudioMuted; // Toggle audio track
-            });
+        // if (localStream) {
+        //     localStream.getAudioTracks().forEach(track => {
+        //         track.enabled = !isAudioMuted; // Toggle audio track
+        //     });
             setIsAudioMuted(!isAudioMuted);
-        }
+        // }
+    };
+
+    // moveabel div
+    const handleMouseDown = (event) => {
+        setIsDragging(true);
+        const offsetX = event.clientX - position.x;
+        const offsetY = event.clientY - position.y;
+        setDragOffset({ x: offsetX, y: offsetY });
     };
 
 
+    const handleMouseMove = (event) => {
+        if (!isDragging) return;
+        const containerRect = divRef.current.getBoundingClientRect();
+        const minX = 0;
+        const minY = 0;
+        const maxX = containerRect.width - 340; // Assuming width and height of the movable div
+        const maxY = containerRect.height - 340;
+
+        console.log(maxX, maxY)
+
+        const x = Math.min(maxX, Math.max(minX, event.clientX - dragOffset.x));
+        const y = Math.min(maxY, Math.max(minY, event.clientY - dragOffset.y));
+
+        setPosition({ x, y });
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
     return (
         <div className='video-screens'>
-            <div className="relative">
+            <div className="relative" ref={divRef}>
                 <video className='bg-slate-900 w-screen h-screen' ref={remoteVideoRef} autoPlay />
-                <video className='w-1/4 absolute top-5 right-5' ref={localVideoRef} autoPlay muted={!isAudioMuted} style={{ transform: 'scaleX(-1)' }} />
+
+                <div className={`${!isVideoOn?'block':'hidden'} absolute w-1/4 top-5 right-5`}
+                    style={{ top: position.y, left: position.x, transform: 'scaleX(-1)' }}
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    >
+
+                    <video
+                        ref={localVideoRef} autoPlay muted={!isAudioMuted}
+                    />
+                </div>
+
 
 
                 <div className="btn-groups absolute bottom-5 w-full">
