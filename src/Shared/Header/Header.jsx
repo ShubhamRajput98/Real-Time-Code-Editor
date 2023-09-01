@@ -1,5 +1,7 @@
 import React from 'react'
 import avatar from '../../assets/Images/avartr.png'
+import { MdVideoCall } from 'react-icons/md'
+import { NavLink } from 'react-router-dom'
 
 export const Header = ({ files, lngChange, Themes, theme, themeChange, userData, open, onOpen }) => {
 
@@ -23,6 +25,12 @@ export const Header = ({ files, lngChange, Themes, theme, themeChange, userData,
                     </div>
                 </div>
                 <div className="dropdown-content flex gap-3">
+                    <div className="videocall">
+
+                        <NavLink to={"/videocalling"} className="bg-slate-800 flex justify-center items-center text-slate-50 h-8 w-8 rounded-full hover:bg-slate-600">
+                            <MdVideoCall />
+                        </NavLink>
+                    </div>
                     <div className="language-dropdown">
                         <select defaultValue={files["script.js"].language} onChange={lngChange} className='outline-none text-sm px-2 py-2 rounded-md bg-slate-950 text-slate-100 border border-slate-100 border-solid'>
 

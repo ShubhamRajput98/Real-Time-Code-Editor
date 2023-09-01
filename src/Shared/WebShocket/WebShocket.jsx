@@ -19,6 +19,7 @@ export const WebSocket = () => {
   );
 
   const handleClickSendMessage = useCallback(() => sendMessage('Hello'), []);
+  const handleCloseConnection = () => setSocketUrl(null);
 
   const connectionStatus = {
     [ReadyState.CONNECTING]: 'Connecting',
@@ -39,6 +40,13 @@ export const WebSocket = () => {
         >
           Click Me to send 'Hello'
         </button>
+        <button
+          onClick={handleCloseConnection}
+        //   disabled={readyState !== ReadyState.CLOSED}
+        >
+          Close connection
+        </button>
+
         <span>The WebSocket is currently {connectionStatus}</span>
         {lastMessage ? <span>Last message: {lastMessage.data}</span> : null}
         <ul>

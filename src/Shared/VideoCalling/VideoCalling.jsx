@@ -116,7 +116,6 @@ export const VideoCalling = () => {
         const maxX = containerRect.width - 340; // Assuming width and height of the movable div
         const maxY = containerRect.height - 340;
 
-        console.log(maxX, maxY)
 
         const x = Math.min(maxX, Math.max(minX, event.clientX - dragOffset.x));
         const y = Math.min(maxY, Math.max(minY, event.clientY - dragOffset.y));
@@ -133,7 +132,7 @@ export const VideoCalling = () => {
             <div className="relative" ref={divRef}>
                 <video className='bg-slate-900 w-screen h-screen' ref={remoteVideoRef} autoPlay />
 
-                <div className={`${!isVideoOn?'block':'hidden'} absolute w-1/4 top-5 right-5`}
+                <div className={`${!isVideoOn?'block':'hidden'} absolute w-1/4`}
                     style={{ top: position.y, left: position.x, transform: 'scaleX(-1)' }}
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
